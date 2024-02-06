@@ -10,9 +10,11 @@ With Strela, you can deploy Minecraft servers to Kubernetes using the MinecraftD
 
 ## Getting started with proxies
 
-We're getting started with proxies, as they are used in most Minecraft server setups. If you want to deploy a Minecraft server, you can use the same steps, but you will need to use a different image and port. You can find a better example in the [Getting started with servers](#) section.
+We're getting started with proxies, as they are used in most Minecraft server setups. If you want to deploy a Minecraft server, you can use the same steps, but you will need to use a different image and port. You can find a better example in the [Getting started with servers](#getting-started-with-servers) section.
 
-```yaml {{ title: 'Example MinecraftDeployment' }}
+The first thing you need to do is to create a MinecraftDeployment resource. In this case we'll naming the file `example-proxy-deployment.yaml` and we'll use the following content:
+
+```yaml {{ title: 'example-proxy-deployment.yaml' }}
 apiVersion: strela.dev/v1
 kind: MinecraftDeployment
 metadata:
@@ -46,19 +48,22 @@ spec:
                   value: "VELOCITY"
 ```
 
-Please keep in mind that we don't register any servers on the proxy by default. If you want that every server you deploy is automatically registered on the proxy, you have to use our additional [Proxy Plugin](#) for Velocity or BungeeCord.
+After you've created the file, you can apply it to your Kubernetes cluster using the following command:
+
+```bash
+kubectl apply -f example-proxy-deployment.yaml
+```
+
+Please keep in mind that we don't register any servers on the proxy by default. If you want that every server you deploy is automatically registered on the proxy, you have to use our additional [Proxy Plugin](/plugin/server-registration) for Velocity or BungeeCord.
 
 ## Getting started with servers
 
-If you want to deploy a Minecraft server, you can use the same steps, but you will need to use a different image and port. Here's an example of how you can deploy a Minecraft server:
+To create a Minecraft server, you can use the following example. We'll name the file `example-server-deployment.yaml` and we'll use the following content:
 
-```yaml {{ title: 'Example MinecraftDeployment' }}
+```yaml {{ title: 'example-server-deployment.yaml' }}
 apiVersion: strela.dev/v1
 kind: MinecraftDeployment
 metadata:
-  labels:
-    # We define this label to be able to create a service, so the Minecraft server can be accessed from the server list
-    app: example-server-deployment
   name: example-server-deployment
 spec:
     replicas: 1
@@ -86,7 +91,13 @@ spec:
                   value: "TRUE"
 ```
 
-If you want to be redirected to any server, you can use our additional [Proxy Plugin](#) for Velocity or BungeeCord. Just keep in mind that you have to put it in the proxy's plugins folder and not in the server's plugins folder.
+After you've created the file, you can apply it to your Kubernetes cluster using the following command:
+
+```bash
+kubectl apply -f example-server-deployment.yaml
+```
+
+If you want to be redirected to any server, when you join a proxy, you can use our additional [Server Connection Plugin](/plugin/server-connection) for Velocity or BungeeCord. Just keep in mind that you have to put it in the proxy's plugins folder and not in the server's plugins folder.
 
 ## Using an SDK
 
