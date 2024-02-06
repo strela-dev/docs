@@ -6,13 +6,16 @@ export const metadata = {
 
 # Minecraft Deployments
 
-With Strela, you can deploy Minecraft servers to Kubernetes using the MinecraftDeployment resource. This resource is a custom resource definition (CRD) that allows you to define a Minecraft server and deploy it to your Kubernetes cluster.  {{ className: 'lead' }}
+With Strela, you can deploy Minecraft servers to Kubernetes using the MinecraftDeployment resource. This resource is a custom resource definition (CRD) that allows you to define a Minecraft server and deploy it to your Kubernetes cluster.
+A MinecraftDeployment orchestrates the creation and management of Minecraft servers. It achieves this by generating MinecraftServerSets, which in turn, instantiate the actual MinecraftServer resources. {{ className: 'lead' }}
 
 ## Get started with proxies
 
 We're getting started with proxies, as they are used in most Minecraft server setups. If you want to deploy a Minecraft server, you can use the same steps, but you will need to use a different image and port. You can find a better example in the [Get started with servers](#get-started-with-servers) section.
 
-The first thing you need to do is to create a MinecraftDeployment resource. In this case we'll name the file `example-proxy-deployment.yaml` and we'll use the following content:
+The first thing you need to do is to create a MinecraftDeployment resource. In this case we're using a Docker image that is based on [itzg/bungeecord](https://hub.docker.com/r/itzg/bungeecord). You can read their documentation, if you want to use a different configuration.
+
+For this example we'll name the file `example-proxy-deployment.yaml` and we'll use the following content:
 
 ```yaml {{ title: 'example-proxy-deployment.yaml' }}
 apiVersion: strela.dev/v1
@@ -63,7 +66,9 @@ Please keep in mind that we don't register any servers on the proxy by default. 
 
 To create a Minecraft server, you can use the following example. If your server has state, that you want to keep between restarts, or your server needs to be identified by a number (e.g. for a lobby server), you should use a MinecraftStatefulSet instead of a MinecraftDeployment. You can find more information about the MinecraftStatefulSet in the [MinecraftStatefulSet documentation](/docs/minecraft-stateful-set).
 
-For this example, we'll name the file `example-server-deployment.yaml` and we'll use the following content:
+For this example, we're using a Docker image that is based on [itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-server). You can read their documentation, if you want to use a different configuration.
+
+In our case we'll name the file `example-server-deployment.yaml` and we'll use the following content:
 
 ```yaml {{ title: 'example-server-deployment.yaml' }}
 apiVersion: strela.dev/v1
@@ -103,6 +108,115 @@ kubectl apply -f example-server-deployment.yaml
 ```
 
 If you want to be redirected to any server, when you join a proxy, you can use our additional [Server Connection Plugin](/plugin/server-connection) for Velocity or BungeeCord. Just keep in mind that you have to put it in the proxy's plugins folder and not in the server's plugins folder.
+
+## Set up private Docker images
+
+You can use private Docker images for your Minecraft servers. To do so, you have to create a secret in your Kubernetes cluster and use it in your MinecraftDeployment.
+
+To create a secret, you can use the following command:
+
+
+<CodeGroup>
+    ```bash {{ title: 'Github Container Registry' }}
+    kubectl create secret docker-registry custom-registry-secret \
+      --docker-server=ghcr.io \
+      --docker-username=GITHUB_USER \
+      --docker-password=DOCKER_PASSWORD \
+      --docker-email=DOCKER_EMAIL
+    ```
+
+    ```bash {{ title: 'Docker Hub' }}
+    kubectl create secret docker-registry custom-registry-secret \
+      --docker-server=index.docker.io \
+      --docker-username=DOCKER_USER \
+      --docker-password=DOCKER_PASSWORD \
+      --docker-email=DOCKER_EMAIL
+    ```
+
+    ```bash {{ title: 'Other' }}
+    kubectl create secret docker-registry custom-registry-secret \
+      --docker-server=DOCKER_REGISTRY_SERVER \
+      --docker-username=DOCKER_USER \
+      --docker-password=DOCKER_PASSWORD \
+      --docker-email=DOCKER_EMAIL
+    ```
+</CodeGroup>
+
+After you've created the secret, you can use it in your MinecraftDeployment. You can use the following example to do so:
+
+<CodeGroup>
+    ```yaml {{ title: 'example-proxy-deployment.yaml' }}
+    apiVersion: strela.dev/v1
+    kind: MinecraftDeployment
+    metadata:
+    labels:
+    app: example-proxy-deployment
+    name: example-proxy-deployment
+    spec:
+    replicas: 1
+    type: PROXY
+    template:
+    spec:
+    template:
+    spec:
+    containers:
+    - image: ghcr.io/strela-dev/docker-minecraft-proxy:main
+    imagePullPolicy: Always
+    name: server
+    tty: true
+    stdin: true
+    ports:
+    - containerPort: 25577
+    name: main
+    env:
+    - name: "TYPE"
+    value: "VELOCITY"
+    imagePullSecrets:
+    - name: custom-registry-secret
+    ```
+
+    ```yaml {{ title: 'example-server-deployment.yaml' }}
+    apiVersion: strela.dev/v1
+    kind: MinecraftDeployment
+    metadata:
+      name: example-server-deployment
+    spec:
+        replicas: 1
+        type: SERVER
+        template:
+            spec:
+            template:
+                spec:
+                containers:
+                - image: ghcr.io/strela-dev/docker-minecraft-server:main
+                  imagePullPolicy: Always
+                  name: server
+                  tty: true
+                  stdin: true
+                  ports:
+                    - containerPort: 25565
+                      name: main
+                  env:
+                    - name: "EULA"
+                      value: "TRUE"
+                  imagePullSecrets:
+                    - name: custom-registry-secret
+    ```
+</CodeGroup>
+
+## Interact with a started MinecraftServer
+
+If you want to interact with a started MinecraftServer, you have to find the pod name of the server. You can do so by using the following command:
+
+```bash
+kubectl get pods
+```
+
+After you've found the pod name, you can use the following command to attach with the server:
+
+```bash
+kubectl attach -it POD_NAME
+```
 
 ## MinecraftDeployment definition
 // TODO: Add a definition of the MinecraftDeployment resource.
