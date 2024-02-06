@@ -12,14 +12,14 @@ With Strela, you can deploy Minecraft servers to Kubernetes using the MinecraftD
 
 We're getting started with proxies, as they are used in most Minecraft server setups. If you want to deploy a Minecraft server, you can use the same steps, but you will need to use a different image and port. You can find a better example in the [Getting started with servers](#getting-started-with-servers) section.
 
-The first thing you need to do is to create a MinecraftDeployment resource. In this case we'll naming the file `example-proxy-deployment.yaml` and we'll use the following content:
+The first thing you need to do is to create a MinecraftDeployment resource. In this case we'll name the file `example-proxy-deployment.yaml` and we'll use the following content:
 
 ```yaml {{ title: 'example-proxy-deployment.yaml' }}
 apiVersion: strela.dev/v1
 kind: MinecraftDeployment
 metadata:
   labels:
-    # We define this label to be able to create a service, so the Minecraft server can be accessed from the server list
+    # We define this label to be able to create a service, so the Minecraft server can be accessed from the server list.
     app: example-proxy-deployment
   name: example-proxy-deployment
 spec:
@@ -38,12 +38,12 @@ spec:
               tty: true
               stdin: true
               ports:
-                # This might be different for your image, but it's usually 25577 for Minecraft proxies
+                # This might be different for your image, but it's usually 25577 for Minecraft proxies.
                 - containerPort: 25577
                   name: main
               env:
-                # Our image is based on itzg/bungeecord, so we use a variable to start a velocity server
-                # If you use a different image, you might need to use a different variable
+                # Our image is based on itzg/bungeecord, so we use a variable to start a velocity server.
+                # If you use a different image, you might need to use a different variable.
                 - name: "TYPE"
                   value: "VELOCITY"
 ```
@@ -54,7 +54,7 @@ After you've created the file, you can apply it to your Kubernetes cluster using
 kubectl apply -f example-proxy-deployment.yaml
 ```
 
-Please keep in mind that we don't register any servers on the proxy by default. If you want that every server you deploy is automatically registered on the proxy, you have to use our additional [Proxy Plugin](/plugin/server-registration) for Velocity or BungeeCord.
+Please keep in mind that we don't register any servers on the proxy by default. If you want that every server you deploy is automatically registered on the proxy, you have to use our additional [Server Registration Plugin](/plugin/server-registration) for Velocity or BungeeCord.
 
 ## Getting started with servers
 
@@ -81,12 +81,12 @@ spec:
               tty: true
               stdin: true
               ports:
-                # This might be different for your image, but it's usually 25565 for Minecraft servers
+                # This might be different for your image, but it's usually 25565 for Minecraft servers.
                 - containerPort: 25565
                   name: main
               env:
-                # Our image is based on itzg/bungeecord, so we use a variable to start a velocity server
-                # If you use a different image, you might need to use a different variable
+                # Our image is based on itzg/bungeecord, so we use a variable to start a velocity server.
+                # If you use a different image, you might need to use a different variable.
                 - name: "EULA"
                   value: "TRUE"
 ```
@@ -104,7 +104,7 @@ If you want to be redirected to any server, when you join a proxy, you can use o
 If you want to use an API to deploy Minecraft server, you can use on of our official SDKs. They offer a simple way to interact with the Strela API and create and manage MinecraftDeployments.
 
 <div className="not-prose">
-  <Button href="/sdks" variant="text" arrow="right">
+  <Button href="/sdk" variant="text" arrow="right">
     <>Check out our list of first-party SDKs</>
   </Button>
 </div>
