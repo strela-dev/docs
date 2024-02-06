@@ -122,8 +122,8 @@ To create a secret, you can use the following command:
     kubectl create secret docker-registry custom-registry-secret \
       --docker-server=ghcr.io \
       --docker-username=GITHUB_USER \
-      --docker-password=DOCKER_PASSWORD \
-      --docker-email=DOCKER_EMAIL
+      --docker-password=GITHUB_PASSWORD \
+      --docker-email=GITHUB_EMAIL
     ```
 
     ```bash {{ title: 'Docker Hub' }}
