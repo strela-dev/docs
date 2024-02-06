@@ -56,6 +56,9 @@ kubectl apply -f example-proxy-deployment.yaml
 
 Please keep in mind that we don't register any servers on the proxy by default. If you want that every server you deploy is automatically registered on the proxy, you have to use our additional [Server Registration Plugin](/plugin/server-registration) for Velocity or BungeeCord.
 
+## Configure load balancing for proxies
+// TODO: Add a guide on how to configure load balancing for proxies.
+
 ## Getting started with servers
 
 To create a Minecraft server, you can use the following example. We'll name the file `example-server-deployment.yaml` and we'll use the following content:
@@ -98,6 +101,9 @@ kubectl apply -f example-server-deployment.yaml
 ```
 
 If you want to be redirected to any server, when you join a proxy, you can use our additional [Server Connection Plugin](/plugin/server-connection) for Velocity or BungeeCord. Just keep in mind that you have to put it in the proxy's plugins folder and not in the server's plugins folder.
+
+## MinecraftDeployment definition
+// TODO: Add a definition of the MinecraftDeployment resource.
 
 ## Using an SDK
 
