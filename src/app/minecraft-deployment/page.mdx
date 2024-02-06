@@ -74,15 +74,16 @@ In our case we'll name the file `example-server-deployment.yaml` and we'll use t
 apiVersion: strela.dev/v1
 kind: MinecraftDeployment
 metadata:
-  name: example-server-deployment
+  labels:
+    name: example-server-deployment
 spec:
-    replicas: 1
-    type: SERVER
-    template:
+  replicas: 1
+  type: SERVER
+  template:
+    spec:
+      template:
         spec:
-        template:
-            spec:
-            containers:
+          containers:
             # We use our Docker image for a Minecraft server.
             # You can use any other image, but make sure it's starting a Minecraft server.
             - image: ghcr.io/strela-dev/docker-minecraft-server:main
@@ -145,63 +146,76 @@ To create a secret, you can use the following command:
 After you've created the secret, you can use it in your MinecraftDeployment. You can use the following example to do so:
 
 <CodeGroup>
+
     ```yaml {{ title: 'example-proxy-deployment.yaml' }}
     apiVersion: strela.dev/v1
     kind: MinecraftDeployment
     metadata:
-    labels:
-    app: example-proxy-deployment
-    name: example-proxy-deployment
+      labels:
+        # We define this label to be able to create a service, so the Minecraft server can be accessed from the server list.
+        app: example-proxy-deployment
+      name: example-proxy-deployment
     spec:
-    replicas: 1
-    type: PROXY
-    template:
-    spec:
-    template:
-    spec:
-    containers:
-    - image: ghcr.io/strela-dev/docker-minecraft-proxy:main
-    imagePullPolicy: Always
-    name: server
-    tty: true
-    stdin: true
-    ports:
-    - containerPort: 25577
-    name: main
-    env:
-    - name: "TYPE"
-    value: "VELOCITY"
-    imagePullSecrets:
-    - name: custom-registry-secret
+      replicas: 1
+      type: PROXY
+      template:
+        spec:
+          template:
+            spec:
+              containers:
+                # We use our Docker image for a Minecraft proxy server.
+                # You can use any other image, but make sure it's starting a Minecraft server.
+                - image: ghcr.io/strela-dev/docker-minecraft-proxy:main
+                  imagePullPolicy: Always
+                  name: server
+                  tty: true
+                  stdin: true
+                  ports:
+                    # This might be different for your image, but it's usually 25577 for Minecraft proxies.
+                    - containerPort: 25577
+                      name: main
+                  env:
+                    # Our image is based on itzg/bungeecord, so we use a variable to start a velocity server.
+                    # If you use a different image, you might need to use a different variable.
+                    - name: "TYPE"
+                      value: "VELOCITY"
+                  imagePullSecrets:
+                    - name: custom-registry-secret
     ```
+
 
     ```yaml {{ title: 'example-server-deployment.yaml' }}
     apiVersion: strela.dev/v1
     kind: MinecraftDeployment
     metadata:
-      name: example-server-deployment
+      labels:
+        name: example-server-deployment
     spec:
-        replicas: 1
-        type: SERVER
-        template:
+      replicas: 1
+      type: SERVER
+      template:
+        spec:
+          template:
             spec:
-            template:
-                spec:
-                containers:
+              containers:
+                # We use our Docker image for a Minecraft server.
+                # You can use any other image, but make sure it's starting a Minecraft server.
                 - image: ghcr.io/strela-dev/docker-minecraft-server:main
                   imagePullPolicy: Always
                   name: server
                   tty: true
                   stdin: true
                   ports:
+                    # This might be different for your image, but it's usually 25565 for Minecraft servers.
                     - containerPort: 25565
                       name: main
                   env:
+                    # Our image is based on itzg/bungeecord, so we use a variable to start a velocity server.
+                    # If you use a different image, you might need to use a different variable.
                     - name: "EULA"
                       value: "TRUE"
-                  imagePullSecrets:
-                    - name: custom-registry-secret
     ```
+
 </CodeGroup>
 
 ## Interact with a started MinecraftServer
