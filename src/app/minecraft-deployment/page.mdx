@@ -214,6 +214,8 @@ After you've created the secret, you can use it in your MinecraftDeployment. You
                     # If you use a different image, you might need to use a different variable.
                     - name: "EULA"
                       value: "TRUE"
+                  imagePullSecrets:
+                    - name: custom-registry-secret
     ```
 
 </CodeGroup>
