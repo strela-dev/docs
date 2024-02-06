@@ -8,9 +8,9 @@ export const metadata = {
 
 With Strela, you can deploy Minecraft servers to Kubernetes using the MinecraftDeployment resource. This resource is a custom resource definition (CRD) that allows you to define a Minecraft server and deploy it to your Kubernetes cluster.  {{ className: 'lead' }}
 
-## Getting started with proxies
+## Get started with proxies
 
-We're getting started with proxies, as they are used in most Minecraft server setups. If you want to deploy a Minecraft server, you can use the same steps, but you will need to use a different image and port. You can find a better example in the [Getting started with servers](#getting-started-with-servers) section.
+We're getting started with proxies, as they are used in most Minecraft server setups. If you want to deploy a Minecraft server, you can use the same steps, but you will need to use a different image and port. You can find a better example in the [Get started with servers](#get-started-with-servers) section.
 
 The first thing you need to do is to create a MinecraftDeployment resource. In this case we'll name the file `example-proxy-deployment.yaml` and we'll use the following content:
 
@@ -59,7 +59,7 @@ Please keep in mind that we don't register any servers on the proxy by default. 
 ## Configure load balancing for proxies
 // TODO: Add a guide on how to configure load balancing for proxies.
 
-## Getting started with servers
+## Get started with servers
 
 To create a Minecraft server, you can use the following example. If your server has state, that you want to keep between restarts, or your server needs to be identified by a number (e.g. for a lobby server), you should use a MinecraftStatefulSet instead of a MinecraftDeployment. You can find more information about the MinecraftStatefulSet in the [MinecraftStatefulSet documentation](/docs/minecraft-stateful-set).
 
