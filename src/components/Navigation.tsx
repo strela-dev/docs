@@ -17,6 +17,7 @@ interface NavGroup {
   links: Array<{
     title: string
     href: string
+    soon?: boolean
   }>
 }
 
@@ -235,21 +236,18 @@ export const navigation: Array<NavGroup> = [
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
-      { title: 'SDKs', href: '/sdks' },
-      { title: 'Authentication', href: '/authentication' },
-      { title: 'Pagination', href: '/pagination' },
-      { title: 'Errors', href: '/errors' },
-      { title: 'Webhooks', href: '/webhooks' },
+      { title: 'Minecraft Deployments', href: '/minecraft-deployment' },
+      { title: 'Minecraft Stateful Sets', href: '/minecraft-stateful-set', soon: true },
+      { title: 'Minecraft Autoscalers', href: '/minecraft-autoscaler', soon: true },
     ],
   },
   {
-    title: 'Resources',
+    title: 'SDKs',
     links: [
-      { title: 'Contacts', href: '/contacts' },
-      { title: 'Conversations', href: '/conversations' },
-      { title: 'Messages', href: '/messages' },
-      { title: 'Groups', href: '/groups' },
-      { title: 'Attachments', href: '/attachments' },
+      { title: 'Overview', href: '/sdk' },
+      { title: 'Kotlin', href: '/sdk/kotlin' },
+      { title: 'Java', href: '/sdk/java' },
+      { title: 'Go', href: '/sdk/go' },
     ],
   },
 ]
