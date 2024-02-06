@@ -242,6 +242,13 @@ export const navigation: Array<NavGroup> = [
     ],
   },
   {
+    title: 'Plugins',
+    links: [
+      { title: 'Server Registration Plugin', href: '/plugin/server-registration' },
+      { title: `Server Connection Plugin`, href: '/plugin/server-connection' }
+    ],
+  },
+  {
     title: 'SDKs',
     links: [
       { title: 'Overview', href: '/sdk' },
