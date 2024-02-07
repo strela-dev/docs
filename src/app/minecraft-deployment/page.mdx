@@ -23,10 +23,10 @@ For this example we'll name the file `example-proxy-deployment.yaml` and we'll u
 apiVersion: strela.dev/v1
 kind: MinecraftDeployment
 metadata:
+  name: example-proxy-deployment
   labels:
     # We define this label to be able to create a service, so the Minecraft server can be accessed from the server list.
     app: example-proxy-deployment
-  name: example-proxy-deployment
 spec:
   replicas: 1
   type: PROXY
@@ -76,8 +76,7 @@ In our case we'll name the file `example-server-deployment.yaml` and we'll use t
 apiVersion: strela.dev/v1
 kind: MinecraftDeployment
 metadata:
-  labels:
-    name: example-server-deployment
+  name: example-server-deployment
 spec:
   replicas: 1
   type: SERVER
@@ -153,10 +152,10 @@ After you've created the secret, you can use it in your MinecraftDeployment. You
     apiVersion: strela.dev/v1
     kind: MinecraftDeployment
     metadata:
+      name: example-proxy-deployment
       labels:
         # We define this label to be able to create a service, so the Minecraft server can be accessed from the server list.
         app: example-proxy-deployment
-      name: example-proxy-deployment
     spec:
       replicas: 1
       type: PROXY
