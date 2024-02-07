@@ -1,4 +1,4 @@
-import { Button, CodeGroup, Properties, Property } from "../../components/mdx";
+import {Button, CodeGroup, Note, Properties, Property} from "../../components/mdx";
 
 export const metadata = {
   title: 'Minecraft Deployments',
@@ -224,23 +224,9 @@ After you've created the secret, you can use it in your MinecraftDeployment. You
 
 ## Interact with a started MinecraftServer
 
-If you want to interact with a started MinecraftServer, you have to find the pod name of the server. You can do so by using the following command:
-
-```bash
-kubectl get pods
-```
-
-After you've found the pod name, you can use the following command to attach with the server:
-
-```bash
-kubectl attach -it POD_NAME
-```
-
-Now you can run any command you want to run on the server. For example, you can kick a player by using the following command:
-
-```bash
-kick Fllip
-```
+<Note>
+    We have a detailed guide on how to interact with a started MinecraftServer. You can find it in the [MinecraftServer documentation](/minecraft-server#interact-with-a-started-minecraft-server).
+</Note>
 
 ## Spec Fields
 
