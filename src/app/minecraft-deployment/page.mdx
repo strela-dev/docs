@@ -189,8 +189,7 @@ After you've created the secret, you can use it in your MinecraftDeployment. You
     apiVersion: strela.dev/v1
     kind: MinecraftDeployment
     metadata:
-      labels:
-        name: example-server-deployment
+      name: example-server-deployment
     spec:
       replicas: 1
       type: SERVER
