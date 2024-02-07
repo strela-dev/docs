@@ -4,9 +4,9 @@ import { HeroPattern } from '../components/HeroPattern'
 import { Button } from "../components/Button";
 
 export const metadata = {
-  title: 'API Documentation',
+  title: 'Strela Documentation',
   description:
-    'Learn everything there is to know about the Protocol API and integrate Protocol into your product.',
+    'Learn everything there is to know about Strela and integrate Strela into your Kubernetes cluster.',
 }
 
 export const sections = [
@@ -16,26 +16,26 @@ export const sections = [
 
 <HeroPattern />
 
-# API Documentation
+# Strela Documentation
 
-Use the Protocol API to access contacts, conversations, group messages, and more and seamlessly integrate your product into the workflows of dozens of devoted Protocol users. {{ className: 'lead' }}
+Use Strela to manage and create your own Minecraft server into your own Kubernetes cluster. Learn everything about Strela and integrate Strela into your Kubernetes cluster. {{ className: 'lead' }}
 
 <div className="not-prose mb-16 mt-6 flex gap-3">
   <Button href="/quickstart" arrow="right">
     <>Quickstart</>
   </Button>
-  <Button href="/sdks" variant="outline">
+  <Button href="/sdk" variant="outline">
     <>Explore SDKs</>
   </Button>
 </div>
 
 ## Getting started {{ anchor: false }}
 
-To get started, create a new application in your [developer settings](#), then read about how to make requests for the resources you need to access using our HTTP APIs or dedicated client SDKs. When your integration is ready to go live, publish it to our [integrations directory](#) to reach the Protocol community. {{ className: 'lead' }}
+To get started, create a Kubernetes cluster or use an existing one. Then install Strela and create a new [MinecraftDeployments](/minecraft-deployment) or [MinecraftStatefulSets](/minecraft-stateful-set), and you're ready to go. Additionally, you can create an [MinecraftAutoscaler](/minecraft-autoscaler) to automatically scale your Minecraft server instances, based on the number of players or available servers. {{ className: 'lead' }}
 
 <div className="not-prose">
-  <Button href="/sdks" variant="text" arrow="right">
-    <>Get your API key</>
+  <Button href="/quickstart" variant="text" arrow="right">
+    <>Read our quickstart</>
   </Button>
 </div>
 

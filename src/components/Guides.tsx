@@ -3,27 +3,30 @@ import { Heading } from '@/components/Heading'
 
 const guides = [
   {
-    href: '/authentication',
-    name: 'Authentication',
-    description: 'Learn how to authenticate your API requests.',
+    href: '/minecraft-deployment',
+    name: 'Minecraft Deployments',
+    description: 'Learn how to create a Minecraft server deployment.',
   },
   {
-    href: '/pagination',
-    name: 'Pagination',
-    description: 'Understand how to work with paginated responses.',
+    href: '/minecraft-stateful-set',
+    name: 'Minecraft StatefulSets',
+    description: 'Understand how to manage Minecraft StatefulSets.',
   },
   {
-    href: '/errors',
-    name: 'Errors',
-    description:
-      'Read about the different types of errors returned by the API.',
+    href: '/minecraft-server-set',
+    name: 'Minecraft ServerSets',
+    description: 'See how Minecraft server sets work, and how they start servers',
   },
   {
-    href: '/webhooks',
-    name: 'Webhooks',
-    description:
-      'Learn how to programmatically configure webhooks for your app.',
+    href: '/minecraft-server',
+    name: 'Minecraft Servers',
+    description: 'Learn how a Minecraft server is structured and how you can configure one.',
   },
+  {
+    href: '/minecraft-autoscaler',
+    name: 'Minecraft Autoscaler',
+    description: 'Read about our Autoscaler and create your own one.',
+  }
 ]
 
 export function Guides() {
