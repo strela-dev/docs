@@ -8,14 +8,14 @@ import logoGo from '@/images/logos/go.svg'
 
 const libraries = [
   {
-    href: '#',
+    href: '/sdk/kotlin',
     name: 'Kotlin',
     description:
       'A modern programming language that makes developers happier and more productive.',
     logo: logoKotlin,
   },
   {
-    href: '#',
+    href: '/sdk/java',
     name: 'Java',
     description:
         'A general-purpose programming language that is class-based, object-oriented, and designed to have as few implementation dependencies as possible.',
