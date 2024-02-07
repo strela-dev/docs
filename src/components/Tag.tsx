@@ -7,9 +7,9 @@ const variantStyles = {
 
 const colorStyles = {
   emerald: {
-    small: 'text-amber-500 dark:text-amber-400',
+    small: 'text-emerald-500 dark:text-emerald-400',
     medium:
-      'ring-amber-300 dark:ring-amber-400/30 bg-amber-400/10 text-amber-500 dark:text-amber-400',
+      'ring-amber-300 dark:ring-emerald-400/30 bg-emerald-400/10 text-amber-500 dark:text-emerald-400',
   },
   sky: {
     small: 'text-sky-500',
@@ -40,6 +40,8 @@ const valueColorMap = {
   DELETE: 'rose',
 } as Record<string, keyof typeof colorStyles>
 
+export type TagColor = keyof typeof colorStyles
+
 export function Tag({
   children,
   variant = 'medium',
@@ -47,7 +49,7 @@ export function Tag({
 }: {
   children: keyof typeof valueColorMap & (string | {})
   variant?: keyof typeof variantStyles
-  color?: keyof typeof colorStyles
+  color?: TagColor
 }) {
   return (
     <span

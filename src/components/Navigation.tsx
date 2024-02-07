@@ -9,7 +9,7 @@ import { AnimatePresence, motion, useIsPresent } from 'framer-motion'
 import { Button } from '@/components/Button'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
 import { useSectionStore } from '@/components/SectionProvider'
-import { Tag } from '@/components/Tag'
+import {Tag, TagColor} from '@/components/Tag'
 import { remToPx } from '@/lib/remToPx'
 
 interface NavGroup {
@@ -51,12 +51,14 @@ function NavLink({
   tag,
   active = false,
   isAnchorLink = false,
+    tagColor = "zinc",
 }: {
   href: string
   children: React.ReactNode
   tag?: string
   active?: boolean
   isAnchorLink?: boolean
+  tagColor?: TagColor
 }) {
   return (
     <Link
@@ -72,7 +74,7 @@ function NavLink({
     >
       <span className="truncate">{children}</span>
       {tag && (
-        <Tag variant="small" color="zinc">
+        <Tag variant="small" color={tagColor}>
           {tag}
         </Tag>
       )}
@@ -191,8 +193,8 @@ function NavigationGroup({
         <ul role="list" className="border-l border-transparent">
           {group.links.map((link) => (
             <motion.li key={link.href} layout="position" className="relative">
-              <NavLink href={link.href} active={link.href === pathname}>
-                {link.title}
+              <NavLink href={link.href} active={link.href === pathname} tag={link.soon ? "Soon" : undefined} tagColor="sky">
+                  {link.title}
               </NavLink>
               <AnimatePresence mode="popLayout" initial={false}>
                 {link.href === pathname && sections.length > 0 && (
@@ -252,9 +254,9 @@ export const navigation: Array<NavGroup> = [
     title: 'SDKs',
     links: [
       { title: 'Overview', href: '/sdk' },
-      { title: 'Kotlin', href: '/sdk/kotlin' },
-      { title: 'Java', href: '/sdk/java' },
-      { title: 'Go', href: '/sdk/go' },
+      { title: 'Kotlin', href: '/sdk/kotlin', soon: true },
+      { title: 'Java', href: '/sdk/java', soon: true },
+      { title: 'Go', href: '/sdk/go', soon: true },
     ],
   },
 ]
@@ -273,11 +275,6 @@ export function Navigation(props: React.ComponentPropsWithoutRef<'nav'>) {
             className={groupIndex === 0 ? 'md:mt-0' : ''}
           />
         ))}
-        <li className="sticky bottom-0 z-10 mt-6 min-[416px]:hidden">
-          <Button href="#" variant="filled" className="w-full">
-            Sign in
-          </Button>
-        </li>
       </ul>
     </nav>
   )
