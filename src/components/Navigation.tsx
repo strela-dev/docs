@@ -240,7 +240,9 @@ export const navigation: Array<NavGroup> = [
       { title: 'Quickstart', href: '/quickstart' },
       { title: 'Minecraft Deployments', href: '/minecraft-deployment' },
       { title: 'Minecraft Stateful Sets', href: '/minecraft-stateful-set', soon: true },
-      { title: 'Minecraft Autoscalers', href: '/minecraft-autoscaler', soon: true },
+      { title: 'Minecraft Server Sets', href: '/minecraft-server-set' },
+      { title: 'Minecraft Servers', href: '/minecraft-server' },
+      { title: 'Minecraft Autoscaler', href: '/minecraft-autoscaler' },
     ],
   },
   {
