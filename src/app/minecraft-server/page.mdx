@@ -8,7 +8,7 @@ export const metadata = {
 
 # Minecraft Servers
 
-With Strela, you can create a single Minecraft server, including proxies like Velocity or BungeeCord, or normal servers like Spigot or Paper. You can also create multiple servers and proxies and manage them all in one place. {{ className: 'lead' }}
+With Strela, you can create a single Minecraft server, including proxies like Velocity or BungeeCord, or normal servers like Spigot or Paper. You don't want to use a MinecraftServer in most cases, as you usually want to use a [MinecraftDeployment](/minecraft-deployment) or a [MinecraftStatefulSet](/minecraft-stateful-set) to create multiple servers. {{ className: 'lead' }}
 
 <Note>
     A MincraftServer has no replicas, so if you want to create multiple servers, you have to use a [MinecraftDeployment](/minecraft-deployment) or a [MinecraftStatefulSet](/minecraft-stateful-set).
@@ -24,12 +24,12 @@ For this example we'll name the file `example-minecraft-server.yaml` and we'll u
 
 ```yaml {{ title: 'example-minecraft-server.yaml' }}
 apiVersion: strela.dev/v1
-kind: MinecraftDeployment
+kind: MinecraftServer
 metadata:
   labels:
     # We define this label to be able to create a service, so the Minecraft server can be accessed from the server list.
-    app: example-proxy-deployment
-  name: example-proxy-deployment
+    app: example-minecraft-server
+  name: example-minecraft-server
 spec:
   # You can set the number of maximal players, but keep in mind that this doesn't change any configuration on the server itself.
   # This is just for our Autoscaler, so it can allocate the right amount of resources.
