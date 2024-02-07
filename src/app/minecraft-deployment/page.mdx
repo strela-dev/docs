@@ -240,15 +240,55 @@ Now you can run any command you want to run on the server. For example, you can 
 kick Fllip
 ```
 
-## MinecraftDeployment definition
-// TODO: Add a definition of the MinecraftDeployment resource.
+## Spec Fields
+
+The `MinecraftDeploymentSpec` defines the desired state of your Minecraft server deployment. Below are the properties you can specify in the MinecraftDeployment spec:
+
+<Properties>
+    <Property name="replicas" type="integer">
+        Specifies the number of replicas for the Minecraft server deployment. Default is 1 if not specified.
+    </Property>
+
+    <Property name="type" type="MinecraftDeploymentType">
+        Defines the type of Minecraft server. Can be one of "PROXY" or "SERVER".
+    </Property>
+
+    <Property name="template" type="MinecraftServerTemplateSpec">
+        A template for creating the [MinecraftServerSet](/minecraft-server-set) instances. Includes also the configuration for the [MinecraftServer](/minecraft-server) resource.
+    </Property>
+</Properties>
+
+## Status Fields
+
+The `MinecraftDeploymentStatus` reflects the observed state of the MinecraftDeployment. It provides runtime information about the servers:
+
+<Properties>
+    <Property name="replicas" type="integer">
+        The current number of replicas of the server that are managed by this MinecraftDeployment.
+    </Property>
+
+    <Property name="ready" type="integer">
+        The number of replicas that are in a Ready state. Ready replicas are those that have successfully started and are available for players.
+    </Property>
+</Properties>
+
+## Types
+
+`MinecraftDeploymentType` is an enumeration that specifies the server type. It supports the following values:
+
+- `PROXY`: A proxy server for connecting multiple servers.
+- `SERVER`: A standard Minecraft server for gameplay.
+
+---
+
+Ensure you apply the correct YAML configuration based on this specification to manage your Minecraft servers effectively within your Kubernetes cluster.
 
 ## Using an SDK
 
 If you want to use an API to deploy Minecraft server, you can use on of our official SDKs. They offer a simple way to interact with the Strela API and create and manage MinecraftDeployments.
 
 <div className="not-prose">
-  <Button href="/sdk" variant="text" arrow="right">
-    <>Check out our list of first-party SDKs</>
-  </Button>
+    <Button href="/sdk" variant="text" arrow="right">
+        <>Check out our list of first-party SDKs</>
+    </Button>
 </div>
