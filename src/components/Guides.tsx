@@ -20,7 +20,7 @@ const guides = [
   {
     href: '/minecraft-server',
     name: 'Minecraft Servers',
-    description: 'Learn how a Minecraft server is structured and how you can configure one.',
+    description: 'Learn how a Minecraft server is structured and how you can use it.',
   },
   {
     href: '/minecraft-autoscaler',
