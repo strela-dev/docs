@@ -2,7 +2,7 @@
 
 ## Getting started
 
-To get started with this template, first install the npm dependencies:
+To get started with this docs, first install the npm dependencies:
 
 ```bash
 npm install
