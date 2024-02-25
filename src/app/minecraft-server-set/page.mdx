@@ -6,7 +6,7 @@ export const metadata = {
     'In this guide, we’ll look at how MinecraftServerSets work and how they are being controlled.',
 }
 
-# Minecraft Servers
+# Minecraft Server Setss
 
 A MinecraftServerSet is based on a [Kubernetes ReplicaSet](https://kubernetes.io/docs/concepts/workloads/controllers/replicaset/), which is a controller that ensures a specified number of pod replicas are running at any given time. It is a part of the [MinecraftDeployment](/minecraft-deployment) resource, which is used to create multiple Minecraft servers.
 The MinecraftServerSet is used to create a single [Minecraft Server](/minecraft-server), which is responsible for the actual Minecraft server instance. {{ className: 'lead' }}
