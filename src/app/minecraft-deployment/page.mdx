@@ -61,8 +61,38 @@ kubectl apply -f example-proxy-deployment.yaml
 
 Please keep in mind that we don't register any servers on the proxy by default. If you want that every server you deploy is automatically registered on the proxy, you have to use our additional [Server Registration Plugin](/plugin/server-registration) for Velocity or BungeeCord.
 
-## Configure load balancing for proxies
-// TODO: Add a guide on how to configure load balancing for proxies.
+## Expose the proxy for players
+Exposing the proxy for players is a crucial step to allow them to connect to your Minecraft servers. You can use a Kubernetes service to expose the proxy. You can use the following example to create a service for the proxy:
+
+```yaml {{ title: 'example-proxy-service.yaml' }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-proxy-service
+spec:
+  selector:
+    app.kubernetes.io/component: proxy
+    # We use the label we've defined in the MinecraftDeployment to select the proxy.
+    # You can use a different label, if you've used a different label in the MinecraftDeployment.
+    # Multiple labels are also possible, and you can specify which proxies you want to select.
+    app: example-proxy-deployment
+  type: NodePort
+  ports:
+    # This might be different for your image, but in our case it's 25577 for Minecraft proxies.
+    - port: 25577
+      targetPort: minecraft
+      protocol: TCP
+      name: minecraft
+      nodePort: 32556
+```
+
+After you've created the file, you can apply it to your Kubernetes cluster using the following command:
+
+```bash
+kubectl apply -f example-proxy-service.yaml
+```
+
+Now you can connect to your proxy using the IP of your Kubernetes cluster and the port you've defined in the service. If you're using a cloud provider, you might need to use a LoadBalancer instead of a NodePort. You can find more information about the different service types in the [Kubernetes documentation](https://kubernetes.io/docs/concepts/services-networking/service/).
 
 ## Get started with servers
 
